@@ -1,0 +1,10 @@
+liquibase:
+  change-log: classpath:/changelog/changelog_master.xml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  h2:
+    console:
+      enabled: true

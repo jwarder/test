@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.greensill</groupId>
+		<artifactId>myapp</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>myapp-test</artifactId>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>2.1.0</version>
+				<configuration>
+					<jmeterExtensions>
+						<jmeterExtension>com.h2database:h2:1.4.193</jmeterExtension>
+					</jmeterExtensions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-analysis-maven-plugin</artifactId>
+				<version>1.0.6</version>
+				<configuration>
+					<source>${project.build.directory}/**/*.jtl</source>
+					<targetDirectory>${project.build.directory}/results</targetDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
