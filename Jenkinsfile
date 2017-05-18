@@ -9,5 +9,10 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('build') {
+            steps {
+                sh 'docker ps'
+            }
+        }
     }
 }
