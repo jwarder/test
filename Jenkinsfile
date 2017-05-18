@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn install'
+        sh 'mvn install -Dmaven.test.failure.ignore=true install'
       }
     }
     stage('Report') {
@@ -14,11 +14,12 @@ pipeline {
     stage('Package') {
       when {
         expression {
-          currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+          currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
+        
       }
       steps {
-        sh 'mvn docker:build'
+        sh 'mvn docker:build -DpushImage'
       }
     }
   }
