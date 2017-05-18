@@ -9,7 +9,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('build') {
+        stage('package') {
             steps {
                 sh 'docker ps'
             }
