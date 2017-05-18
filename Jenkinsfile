@@ -14,7 +14,7 @@ pipeline {
     stage('Package') {
       when {
         expression {
-          currentBuild.result = 'SUCCESS' 
+          currentBuild.getResult() == 'SUCCESS' 
         }
       }
       steps {
