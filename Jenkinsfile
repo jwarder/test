@@ -12,6 +12,11 @@ pipeline {
       }
     }
     stage('Package') {
+      when {
+        expression {
+          currentBuild.getResult() == 'SUCCESS' 
+        }
+      }
       steps {
         sh 'mvn docker:build'
       }
