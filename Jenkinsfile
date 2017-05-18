@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Package') {
       steps {
-        sh 'docker ps'
+        sh 'mvn docker:build'
       }
     }
   }
