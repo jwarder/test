@@ -16,7 +16,7 @@ public class ApplicationTests {
 
 	@Test
 	public void testSomethingDoesntWork() {
-		assertTrue(true);
+		assertTrue(false);
 	}
 	
 }
