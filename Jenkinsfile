@@ -24,7 +24,17 @@ pipeline {
     }
     stage('Integration') {
       steps {
-        sh 'rancher help'
+        parallel(
+          "Integration": {
+            sh 'rancher help'
+            
+          },
+          "": {
+            pwd()
+            sh 'pwd'
+            
+          }
+        )
       }
     }
   }
