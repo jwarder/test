@@ -16,25 +16,18 @@ pipeline {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
-        
+
       }
       steps {
         sh 'mvn docker:build -DpushImage'
       }
     }
     stage('Integration') {
+      environment {
+        ACCESS_KEY = credentials('RANCHER_ACCESS_KEY')
+      }
       steps {
-        parallel(
-          "Integration": {
-            sh 'rancher help'
-            
-          },
-          "": {
-            pwd()
-            sh 'pwd'
-            
-          }
-        )
+        sh 'printenv'
       }
     }
   }
