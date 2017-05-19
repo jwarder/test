@@ -24,10 +24,12 @@ pipeline {
     }
     stage('Integration') {
       environment {
-        ACCESS_KEY = credentials('RANCHER_ACCESS_KEY')
+        RANCHER_ACCESS_KEY = credentials('RANCHER_ACCESS_KEY')
+        RANCHER_SECRET_KEY = credentials('RANCHER_SECRET_KEY')
+        RANCHER_URL = 'http://rancher-server.dev.gc.com/'
       }
       steps {
-        sh 'printenv'
+        sh 'rancher-compose -d -p stack1 up --upgrade'
       }
     }
   }
