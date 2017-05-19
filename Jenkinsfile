@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Integration') {
       steps {
-        echo 'hello'
+        sh 'rancher help'
       }
     }
   }
