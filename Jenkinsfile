@@ -29,7 +29,7 @@ pipeline {
         RANCHER_URL = 'http://rancher-server.dev.gc.com/'
       }
       steps {
-        sh 'rancher-compose -d -p stack1 up --upgrade'
+        sh 'rancher-compose -p stack1 up --upgrade -d'
       }
     }
   }
