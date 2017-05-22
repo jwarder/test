@@ -33,7 +33,7 @@ pipeline {
     }
     stage('Jmeter') {
       steps {
-        sh 'mvn jmeter:jmeter -Djmeter.hostName=example.com -Djmeter.responseCode=201'
+        sh 'ls -l'
       }
     }
   }
