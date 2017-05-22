@@ -32,12 +32,9 @@ pipeline {
         sh 'rancher-compose -p stack1 up --upgrade -d'
       }
     }
-    stage('Jmeter') {
+    stage('Database') {
       steps {
-        dir(path: 'myapp-test') {
-          sh 'mvn jmeter:jmeter -Djmeter.hostName=example.com -Djmeter.responseCode=201'
-        }
-
+          sh 'mvn liquibase:update -DdatabaseUrl=jdbc:postgresql://experimental.cb60pnrcrtj6.eu-west-1.rds.amazonaws.com:5432/myapp -DdatabaseUsername=postgres -DdatabasePassword=password'
       }
     }
   }

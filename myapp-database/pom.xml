@@ -16,24 +16,13 @@
 					<version>3.5.1</version>
 					<configuration>
 						<propertyFile>liquibase.properties</propertyFile>
-						<propertyFileWillOverride>true</propertyFileWillOverride>
 						<changeLogFile>changelog/changelog_master.xml</changeLogFile>
 						<driver>org.postgresql.Driver</driver>
 						<url>${databaseUrl}</url>
 						<username>${databaseUsername}</username>
 						<password>${databasePassword}</password>
-						<url>${databaseUrl}</url>
 						<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
 					</configuration>
-					<executions>
-						<execution>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>clearCheckSums</goal>
-								<goal>update</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
