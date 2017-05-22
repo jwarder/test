@@ -34,8 +34,10 @@ pipeline {
     }
     stage('Jmeter') {
       steps {
-        dir(path: 'myapp-test')
-        sh 'ls -l'
+        dir(path: 'myapp-test') {
+          sh 'ls -l'
+        }
+        
       }
     }
   }
