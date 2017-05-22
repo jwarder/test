@@ -8,6 +8,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>myapp-test</artifactId>
+	<properties>
+		<jmeter.hostName>localhost</jmeter.hostName>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
@@ -18,6 +21,10 @@
 					<jmeterExtensions>
 						<jmeterExtension>com.h2database:h2:1.4.193</jmeterExtension>
 					</jmeterExtensions>
+					<propertiesUser>
+						<hostName>${jmeter.hostName}</hostName>
+						<responseCode>${jmeter.responseCode}</responseCode>
+					</propertiesUser>
 				</configuration>
 			</plugin>
 			<plugin>
