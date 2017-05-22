@@ -16,7 +16,7 @@ pipeline {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
-
+        
       }
       steps {
         sh 'mvn docker:build -DpushImage'
@@ -34,7 +34,10 @@ pipeline {
     }
     stage('Database') {
       steps {
+        dir(path: 'myapp-database') {
           sh 'mvn liquibase:update -DdatabaseUrl=jdbc:postgresql://experimental.cb60pnrcrtj6.eu-west-1.rds.amazonaws.com:5432/myapp -DdatabaseUsername=postgres -DdatabasePassword=password'
+        }
+        
       }
     }
   }
