@@ -16,7 +16,6 @@ pipeline {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
-
       }
       steps {
         sh 'mvn docker:build -DpushImage'
@@ -30,6 +29,11 @@ pipeline {
       }
       steps {
         sh 'rancher-compose -p stack1 up --upgrade -d'
+      }
+    }
+    stage('Jmeter') {
+      steps {
+        sh 'mvn jmeter:jmeter -Djmeter.hostName=example.com -Djmeter.responseCode=201'
       }
     }
   }
