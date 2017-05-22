@@ -16,7 +16,7 @@ pipeline {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
-        
+
       }
       steps {
         sh 'mvn docker:build -DpushImage'
@@ -35,9 +35,9 @@ pipeline {
     stage('Jmeter') {
       steps {
         dir(path: 'myapp-test') {
-          sh 'ls -l'
+          sh 'mvn jmeter:jmeter -Djmeter.hostName=example.com -Djmeter.responseCode=201'
         }
-        
+
       }
     }
   }
