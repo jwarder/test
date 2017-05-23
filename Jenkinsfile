@@ -3,6 +3,7 @@ pipeline {
     RANCHER_ACCESS_KEY = credentials('RANCHER_ACCESS_KEY')
     RANCHER_SECRET_KEY = credentials('RANCHER_SECRET_KEY')
     RANCHER_URL = 'http://rancher-server.dev.gc.com/'
+    RANCHER_STACK = "myapp"
     DB_URL = 'jdbc:postgresql://experimental.cb60pnrcrtj6.eu-west-1.rds.amazonaws.com:5432/myapp'
     DB_USERNAME = 'postgres'
     DB_PASSWORD = 'password'
@@ -32,7 +33,7 @@ pipeline {
     }
     stage('Integration') {
       steps {
-        sh 'rancher-compose up --upgrade -d'
+        sh 'rancher-compose -p $RANCHER_STACK up --upgrade -d'
       }
     }
     stage('Database') {
