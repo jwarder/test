@@ -32,13 +32,13 @@ pipeline {
     }
     stage('Integration') {
       steps {
-        sh 'rancher-compose -p stack1 up --upgrade -d'
+        sh 'rancher-compose up --upgrade -d'
       }
     }
     stage('Database') {
       steps {
-        dir(path: '*-database') {
-          sh 'ls -l'
+        dir(path: 'myapp-database') {
+          sh 'mvn liquibase:updateTestingRollback -DdatabaseUrl=$DB_URL -DdatabaseUsername=$DB_USERNAME -DdatabasePassword=$DB_PASSWORD'
         }
       }
     }
