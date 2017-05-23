@@ -37,7 +37,7 @@ pipeline {
     }
     stage('Database') {
       steps {
-        dir(path: '**/*-database') {
+        dir(path: '*-database') {
           sh 'pwd'
         }
       }
