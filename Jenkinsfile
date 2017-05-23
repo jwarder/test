@@ -38,7 +38,7 @@ pipeline {
     stage('Database') {
       steps {
         dir(path: '**/*-database') {
-          sh 'mvn liquibase:updateTestingRollback -DdatabaseUrl=$DB_URL -DdatabaseUsername=$DB_USERNAME -DdatabasePassword=$DB_PASSWORD'
+          sh 'pwd'
         }
       }
     }
