@@ -25,7 +25,6 @@ pipeline {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
-
       }
       steps {
         sh 'mvn docker:build -DpushImage'
@@ -34,13 +33,14 @@ pipeline {
     stage('Integration') {
       steps {
         sh 'rancher-compose -p $RANCHER_STACK up --upgrade -d'
-      }
-    }
-    stage('Database') {
-      steps {
         dir(path: 'myapp-database') {
           sh 'mvn liquibase:updateTestingRollback -DdatabaseUrl=$DB_URL -DdatabaseUsername=$DB_USERNAME -DdatabasePassword=$DB_PASSWORD'
         }
+      }
+    }
+    stage('QA') {
+      steps {
+        sh 'echo "Deploy to QA"'
       }
     }
   }
