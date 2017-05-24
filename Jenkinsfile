@@ -31,7 +31,7 @@ pipeline {
       }
     }
     stage('Integration') {
-      steps
+      steps {
         sh 'rancher-compose -p $RANCHER_STACK up --upgrade -d'
         dir(path: 'myapp-database') {
           sh 'mvn liquibase:updateTestingRollback -DdatabaseUrl=$DB_URL -DdatabaseUsername=$DB_USERNAME -DdatabasePassword=$DB_PASSWORD'
@@ -41,11 +41,6 @@ pipeline {
     stage('QA') {
       steps {
         sh 'echo "Deploy to QA"'
-      }
-    }
-    stage('Production') {
-      steps {
-        sh 'echo "Deploy to Production"'
       }
     }
   }
