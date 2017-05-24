@@ -43,6 +43,11 @@ pipeline {
         sh 'echo "Deploy to QA"'
       }
     }
+    stage('Production') {
+      steps {
+        sh 'echo "Deploy to Production"'
+      }
+    }
   }
   tools {
     maven 'apache-maven-3.5.0'
