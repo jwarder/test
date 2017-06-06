@@ -1,13 +1,4 @@
 pipeline {
-  environment {
-    RANCHER_ACCESS_KEY = credentials('RANCHER_ACCESS_KEY')
-    RANCHER_SECRET_KEY = credentials('RANCHER_SECRET_KEY')
-    RANCHER_URL = 'http://rancher-server.dev.gc.com/'
-    RANCHER_STACK = "myapp"
-    DB_URL = 'jdbc:postgresql://experimental.cb60pnrcrtj6.eu-west-1.rds.amazonaws.com:5432/myapp'
-    DB_USERNAME = 'postgres'
-    DB_PASSWORD = 'password'
-  }
   agent any
   stages {
     stage('Build') {
@@ -25,6 +16,7 @@ pipeline {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
+        
       }
       steps {
         sh 'mvn docker:build -DpushImage'
@@ -36,6 +28,7 @@ pipeline {
         dir(path: 'myapp-database') {
           sh 'mvn liquibase:updateTestingRollback -DdatabaseUrl=$DB_URL -DdatabaseUsername=$DB_USERNAME -DdatabasePassword=$DB_PASSWORD'
         }
+        
       }
     }
     stage('QA') {
@@ -45,11 +38,29 @@ pipeline {
     }
     stage('Production') {
       steps {
-        sh 'echo "Deploy to Production"'
+        parallel(
+          "Production": {
+            sh 'echo "Deploy to Production"'
+            
+          },
+          "Test": {
+            echo 'Hello'
+            
+          }
+        )
       }
     }
   }
   tools {
     maven 'apache-maven-3.5.0'
+  }
+  environment {
+    RANCHER_ACCESS_KEY = credentials('RANCHER_ACCESS_KEY')
+    RANCHER_SECRET_KEY = credentials('RANCHER_SECRET_KEY')
+    RANCHER_URL = 'http://rancher-server.dev.gc.com/'
+    RANCHER_STACK = 'myapp'
+    DB_URL = 'jdbc:postgresql://experimental.cb60pnrcrtj6.eu-west-1.rds.amazonaws.com:5432/myapp'
+    DB_USERNAME = 'postgres'
+    DB_PASSWORD = 'password'
   }
 }
